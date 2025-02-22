@@ -7,11 +7,9 @@ class Option:
         self._text = text
         self._is_correct = is_correct
 
-    # Магические методы
     def __str__(self):
         return self._text
 
-    # Публичные свойства
     @property
     def is_correct(self):
         return self._is_correct
@@ -21,7 +19,6 @@ class Question:
         self._text = text
         self._options = []
 
-    # Публичные свойства
     @property
     def text(self):
         return self._text
@@ -30,7 +27,6 @@ class Question:
     def options(self):
         return self._options
 
-    # Публичные методы
     def add_option(self, text, is_correct=False):
         self._options.append(Option(text, is_correct))
         
@@ -43,7 +39,6 @@ class Answer:
         self._user_answers = user_answers
         self._is_correct = is_correct
 
-    # Публичные свойства
     @property
     def question(self):
         return self._question
@@ -62,7 +57,6 @@ class Statistic:
         self._correct_count = 0
         self._answers = []
 
-    # Публичные методы
     def add_answer(self, question, user_answers, is_correct):
         self._total_count += 1
         if is_correct:
@@ -84,7 +78,6 @@ class Statistic:
             if not answer.is_correct:
                 print(f"Правильный ответ: [{correct_answer_str}]")
 
-    # Приватные методы
     def _get_percentage(self):
         return (self._correct_count / self._total_count * 100) if self._total_count > 0 else 0
 
@@ -93,7 +86,6 @@ class Quiz:
         self._questions = []
         self._statistic = Statistic()
 
-    # Публичные методы
     def run(self):
         file_path = "questions.txt"
         if not self._read_questions(file_path) or not self._questions:
@@ -134,7 +126,6 @@ class Quiz:
             
         self._statistic.print()
 
-    # Защищенные методы
     def _read_questions(self, file_path):
         try:
             with open(file_path, 'r', encoding='utf-8') as file:
@@ -163,7 +154,6 @@ class Quiz:
             print("Файл не найден!")
             return False
 
-    # Приватные методы
     def __print_instructions(self):
         print("Для выхода введите 'exit'")
         print("Вводите номера вариантов ответа через пробел (начиная с 0)")
@@ -175,7 +165,6 @@ class Quiz:
             return [int(answer[1:-1])]
         return [int(x) for x in answer.split()]
 
-# Глобальная переменная для экземпляра Quiz
 _quiz_instance = None
 
 def _signal_handler(sig, frame):
